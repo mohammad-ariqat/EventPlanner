@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('event_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('file_path');
+            $table->string('file_type')->nullable();
+            $table->integer('file_size')->nullable();
             $table->timestamps();
         });
     }
