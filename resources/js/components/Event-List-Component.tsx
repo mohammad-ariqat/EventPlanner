@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { Event } from '../types';
 
 const EventList = () => {
     const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+    
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -30,7 +30,7 @@ const EventList = () => {
     };
 
     const handleCreateEvent = () => {
-        navigate('/events/create');
+        redirect('/events/create');
     };
 
     if (loading) return <div className="text-center p-4">Loading events...</div>;
@@ -59,7 +59,7 @@ const EventList = () => {
                         <div 
                             key={event.id} 
                             className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-                            onClick={() => navigate(`/events/${event.id}`)}
+                            onClick={() => redirect(`/events/${event.id}`)}
                         >
                             <div className="bg-blue-50 p-4">
                                 <h2 className="text-xl font-semibold truncate">{event.title}</h2>

@@ -7,13 +7,16 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+
+use function Termwind\render;
 
 class EventController extends Controller
 {
-    public function index(): JsonResponse
+    public function index()
     {
         $events = Event::where('user_id', Auth::id())->latest()->get();
-        return response()->json($events);
+        return Inertia::render('Events/Index', ['events' => $events]);
     }
 
     public function store(Request $request): JsonResponse
